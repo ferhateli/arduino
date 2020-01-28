@@ -1,0 +1,40 @@
+// By : Ferhat Abu 3lo & the bird & Vindor & KHllllood
+// Ultrasonic on LCD
+#include <LiquidCrystal.h>
+LiquidCrystal lcd(2, 3, 4, 5, 6, 7);
+const int trigPin = 9;
+const int echoPin = 10;
+long duration;
+int distanceCm;
+
+int lostSizeLiter;
+const int length = 55;
+const int width = 55;
+
+void setup() {
+  
+lcd.begin(16,2); 
+pinMode(trigPin, OUTPUT);
+pinMode(echoPin, INPUT);
+
+}
+
+void loop() {
+  
+digitalWrite(trigPin, LOW);
+delayMicroseconds(2);
+digitalWrite(trigPin, HIGH);
+delayMicroseconds(10);
+digitalWrite(trigPin, LOW);
+
+duration = pulseIn(echoPin, HIGH);
+distanceCm = duration*0.034/2;
+lostSizeLiter = distanceCm*length*width/1000;
+
+lcd.setCursor(0,0); 
+lcd.print("LostSize: "); 
+lcd.print(lostSizeLiter);
+lcd.print("  L");
+delay(10);
+}
+
